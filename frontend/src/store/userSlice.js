@@ -1,3 +1,5 @@
+import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
   userData: {
     id: "",
@@ -15,7 +17,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => { console.log(builder) },
 });
 
 export default userSlice.reducer;
