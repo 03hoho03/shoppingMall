@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, Schema } = require("mongoose");
 
 const productSchema = new mongoose.Schema({
   writer: {
@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  image: {
+  images: {
     type: Array,
     default: [],
   },
@@ -32,6 +32,19 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("Product", productSchema);
+productSchema.index(
+  {
+    title: "text",
+    description: "text",
+  },
+  {
+    weights: {
+      title: 5,
+      description: 1,
+    },
+  }
+);
+
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

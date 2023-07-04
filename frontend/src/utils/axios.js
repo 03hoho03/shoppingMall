@@ -17,6 +17,11 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   function (response) {
+    if (response.data === "jwt expired" || response.data === "jwt malformed") {
+      localStorage.removeItem("accessToken");
+      window.alert("로그인 세션이 만료되었습니다.");
+      return Promise.reject(response.data);
+    }
     return response;
   },
   function (error) {
